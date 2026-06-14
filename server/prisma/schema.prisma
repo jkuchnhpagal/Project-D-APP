@@ -1,0 +1,71 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model User {
+  id           String         @id @default(uuid())
+  address      String         @unique
+  role         Role           @default(USER)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  name         String?
+  bio          String?
+  referralCode String         @unique @default(dbgenerated("concat('REF-', substring(md5(random()::text), 1, 8))"))
+  referredBy   String?
+  logins       LoginHistory[]
+  transactions Transaction[]
+}
+
+model LoginHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ip        String
+  userAgent String
+  timestamp DateTime @default(now())
+}
+
+model Transaction {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  txHash    String   @unique
+  from      String
+  to        String
+  amount    String
+  network   String
+  status    String   // PENDING, SUCCESS, FAILED
+  gasUsed   String?
+  createdAt DateTime @default(now())
+}
+
+model DAOProposal {
+  id          String   @id @default(uuid())
+  proposalId  Int      @unique // Smart contract proposal ID
+  title       String
+  description String
+  votesFor    String   @default("0")
+  votesAgainst String  @default("0")
+  endTime     DateTime
+  executed    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model NodeConfig {
+  id         String   @id @default(uuid())
+  network    String   @unique // e.g. "ethereum", "sepolia", "polygon"
+  rpcUrl     String
+  provider   String   // Alchemy, Infura, QuickNode, Custom
+  isActive   Boolean  @default(true)
+  updatedAt  DateTime @updatedAt
+}

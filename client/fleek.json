@@ -1,0 +1,13 @@
+{
+  "name": "astraea-dapp",
+  "framework": "nextjs",
+  "build": {
+    "command": "npm run build",
+    "directory": "out"
+  },
+  "site": {
+    "public": true,
+    "ipns": true,
+    "customDomain": ""
+  }
+}
