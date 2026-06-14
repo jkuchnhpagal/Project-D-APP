@@ -1,5 +1,7 @@
 # Astraea | Futuristic Web3 Decentralized Application (dApp)
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/jkuchnhpagal/Project-D-APP)
+
 Astraea is a world-class, premium-quality Web3 portal featuring a futuristic 3D animated user interface. Built with modern, enterprise-grade architecture, Astraea incorporates cryptographic signature-based authentication (SIWE), interactive DeFi vaults, DAO voting governance, real-time node monitoring, and seamless local or containerized execution.
 
 ---
