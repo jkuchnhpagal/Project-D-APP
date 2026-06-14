@@ -25,11 +25,10 @@ services:
       - key: CLIENT_URL
         value: http://localhost:3000 # Can be updated with your vercel URL later
 
+  - type: redis
+    name: astraea-redis
+    plan: free
+
 databases:
   - name: astraea-db
-    plan: free
-    postgresVersion: 15
-
-redis:
-  - name: astraea-redis
     plan: free
