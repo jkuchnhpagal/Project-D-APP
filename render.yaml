@@ -3,7 +3,7 @@ services:
     name: astraea-backend
     env: node
     rootDir: server
-    buildCommand: npm install && npm run prisma:generate && npm run build
+    buildCommand: npm install --production=false && npm run prisma:generate && npm run build
     startCommand: npm run start
     plan: free
     envVars:

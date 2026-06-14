@@ -50,7 +50,7 @@ export interface AuthenticatedRequest extends Request {
 }
 
 const authenticateToken = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-  const token = req.cookies.auth_token;
+  const token = (req as any).cookies?.auth_token;
 
   if (!token) {
     return res.status(401).json({ error: "Access denied. Connect wallet to sign in." });
